@@ -30,12 +30,16 @@ Add-content $Logfile -value "### start reorganizing folders ###"
 Add-content $Logfile -value "##################################"
 Add-content $Logfile -value ""
 
+
+$targetFolderFullPath = Resolve-Path $targetFolder
+$referenceFolderFullPath = Resolve-Path $referenceFolder
+
 function MoveAtRightPlace {
     param (
         [System.IO.DirectoryInfo] $sourceItem
     )
     
-    $possibleMatches = (Get-ChildItem $referenceFolder -Recurse -filter $sourceItem.Name | Where-Object { $_.PsIsContainer -eq $true }).FullName
+    $possibleMatches = (Get-ChildItem $referenceFolder -Recurse -filter $sourceItem.Name | Where-Object { $_.PsIsContainer -eq $true }).Fullname
 
     if ( $possibleMatches.Count -eq 0 ) {
 
@@ -50,7 +54,22 @@ function MoveAtRightPlace {
 
     } elseif ( $possibleMatches.Count -eq 1) {
         
-        Write-Host "1 match for " + $sourceItem.Name
+        $currentSourceFolderPath = $sourceItem.Fullname.Replace($targetFolderFullPath, "")
+        $currentReferenceFolderPath = $possibleMatches.Replace($referenceFolderFullPath, "")
+
+        if ($currentSourceFolderPath -eq $currentReferenceFolderPath) {
+
+            $msg = "nothing to do for folder '" + $currentSourceFolderPath + "'"
+            Add-Content $logFile -value $msg
+
+        } else {
+
+            $currentDestinationFolderPath = $targetFolderFullPath.ToString() + $currentReferenceFolderPath
+            Move-Item -Path $sourceItem.FullName -Destination $currentDestinationFolderPath
+            
+            $moveLog = "folder '" + $currentSourceFolderPath + "' moved to '" + $currentDestinationFolderPath + "'"
+            Add-Content $logFile -value $moveLog
+        }
 
     } else {
         
@@ -80,8 +99,6 @@ function MoveAtRightPlace {
 Get-ChildItem $targetFolder -Recurse `
     | Where-Object { $_.PsIsContainer -eq $true } `
     | ForEach-Object { MoveAtRightPlace -sourceItem $_ }
-
-#$allReferenceFolders = (Get-ChildItem $referenceFolder -Recurse ` | Where-Object { $_.PsIsContainer -eq $true }).FullName
 
 
 
