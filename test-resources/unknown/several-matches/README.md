@@ -1,2 +1,0 @@
-Here will be moved all folders for which we have found several possible references in referenced folder, and for which we are not able to choose the destination.
-They have to be processed manually later.

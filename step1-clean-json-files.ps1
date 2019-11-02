@@ -1,15 +1,16 @@
 <#
 .SYNOPSIS
     Permanently remove all *.json files from targeted folder, and recursed sub-folders
-.PARAMETER TargetFolder
+.PARAMETER takeOutArchivePath
     The folder in which deleting all JSON files
-    By default, ".\test-resources\test-folder" in order to perform tests.
-.PARAMETER LogFile
+    By default, ".\test-resources\take-out-archive" in order to perform tests.
+.PARAMETER logFile
     Path to the file where to log all removed files.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param([string]$targetFolder = ".\test-resources\test-folder", [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
+        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
 
 
 Add-content $Logfile -value ""
@@ -20,7 +21,7 @@ Add-content $Logfile -value "#################################"
 Add-content $Logfile -value ""
 
 
-Get-ChildItem $targetFolder -recurse -include *.json | Tee-Object -var filesToDelete | Remove-Item 
+Get-ChildItem $takeOutArchivePath -recurse -include *.json | Tee-Object -var filesToDelete | Remove-Item 
 $filesToDelete | Add-Content $logFile
 
 

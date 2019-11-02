@@ -1,15 +1,16 @@
 <#
 .SYNOPSIS
     Permanently remove all empty folders from targeted folder, and recursed sub-folders
-.PARAMETER TargetFolder
+.PARAMETER takeOutArchivePath
     The folder in which deleting all empty folders.
-    By default, ".\test-resources\test-folder" in order to perform tests.
-.PARAMETER LogFile
+    By default, ".\test-resources\take-out-archive" in order to perform tests.
+.PARAMETER logFile
     Path to the file where to log all removed folders.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param([string]$targetFolder = ".\test-resources\test-folder", [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
+        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
 
 
 
@@ -24,7 +25,7 @@ Add-content $Logfile -value ""
 Do {
 
     #selecting folders to delete
-    $allEmptyFolders = (Get-ChildItem $targetFolder -Recurse `
+    $allEmptyFolders = (Get-ChildItem $takeOutArchivePath -Recurse `
         | Where-Object { $_.PsIsContainer -eq $true } `
         | Where-Object { $_.GetFiles().Count -eq 0 -and $_.GetDirectories().Count -eq 0 } ).Fullname
 
