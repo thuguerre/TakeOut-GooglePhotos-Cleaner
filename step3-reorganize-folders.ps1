@@ -1,23 +1,23 @@
 <#
 .SYNOPSIS
-    Reorganize $targetFolder's folders (and its contained files) to reproduce a referenced folder's structure.
+    Reorganize $takeOutArchivePath's folders (and its contained files) to reproduce a referenced folder's structure.
     This step is a pre-requisite to compare files between two similar folder structures (see step 4).
-    All folders from $targetFolder which are not found in $referenceFolder are moved to an 'unknown' folder to be processed manually.
-.PARAMETER TargetFolder
+    All folders from $takeOutArchivePath which are not found in $referenceFolder are moved to an 'unknown' folder to be processed manually.
+.PARAMETER takeOutArchivePath
     The folder in which we are trying to reorganize folders.
     By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER ReferenceFolder
     The folder we will try to copy the structure. It will not be modified at all.
     By default, ".\test-resources\reference-folder" in order to perform tests.
 .PARAMETER UnknownFolder
-    The folder path in which all unfound folders from $targetFolder will be moved to be processed manually later.
-    By default, ".\test-resources\take-out-archive-unknown", outside $targetFolder in order to disturb process with pre-requisite technical files.
-.PARAMETER LogFile
+    The folder path in which all unfound folders from $takeOutArchivePath will be moved to be processed manually later.
+    By default, ".\test-resources\take-out-archive-unknown", outside $takeOutArchivePath in order to disturb process with pre-requisite technical files.
+.PARAMETER logFile
     Path to the file where to log all folder moves.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param(  [string] $targetFolder = ".\test-resources\take-out-archive",
+param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
         [string] $referenceFolder = ".\test-resources\reference-folder",
         [string] $unknownFolder = ".\test-resources\take-out-archive-unknown",
         [string] $logFile = ".\takeout-googlephotos-cleaner.log")
@@ -31,7 +31,7 @@ Add-content $Logfile -value "##################################"
 Add-content $Logfile -value ""
 
 
-$targetFolderFullPath = Resolve-Path $targetFolder
+$takeOutArchivePathFullPath = Resolve-Path $takeOutArchivePath
 $referenceFolderFullPath = Resolve-Path $referenceFolder
 
 function MoveAtRightPlace {
@@ -54,7 +54,7 @@ function MoveAtRightPlace {
 
     } elseif ( $possibleMatches.Count -eq 1) {
         
-        $currentSourceFolderPath = $sourceItem.Fullname.Replace($targetFolderFullPath, "")
+        $currentSourceFolderPath = $sourceItem.Fullname.Replace($takeOutArchivePathFullPath, "")
         $currentReferenceFolderPath = $possibleMatches.Replace($referenceFolderFullPath, "")
 
         if ($currentSourceFolderPath -eq $currentReferenceFolderPath) {
@@ -64,7 +64,7 @@ function MoveAtRightPlace {
 
         } else {
 
-            $currentDestinationFolderPath = $targetFolderFullPath.ToString() + $currentReferenceFolderPath
+            $currentDestinationFolderPath = $takeOutArchivePathFullPath.ToString() + $currentReferenceFolderPath
 
             if (-Not (Test-Path $currentDestinationFolderPath)) {
                 
@@ -106,8 +106,8 @@ function MoveAtRightPlace {
 }
 
 
-#$allTargetFolders =
-Get-ChildItem $targetFolder -Recurse `
+#$alltakeOutArchivePaths =
+Get-ChildItem $takeOutArchivePath -Recurse `
     | Where-Object { $_.PsIsContainer -eq $true } `
     | ForEach-Object { MoveAtRightPlace -sourceItem $_ }
 
