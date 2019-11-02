@@ -64,6 +64,13 @@ function MoveAtRightPlace {
         $moveLog = "several references found for '" + $sourceItem.Name + "'. Move to 'several-matches' folder"
         Add-Content $logFile -value $moveLog
 
+        $i = 0
+        Do {
+            $possibleMatch = "   > " + $possibleMatches[$i]
+            Add-Content $logFile -Value $possibleMatch
+            $i++
+        } Until ( $i -eq $possibleMatches.Count )
+
         # TODO if there are several matches, but one of them is the exact path of the current item, we have to do nothing.
     }
 }
