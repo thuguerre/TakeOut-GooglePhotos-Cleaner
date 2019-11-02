@@ -47,7 +47,7 @@ function MoveAtRightPlace {
         # it has to be moved in 'unknown\not-found' to be processed manually later
 
         $destinationPath = $unknownFolder + "\not-found\" + $sourceItem.Name
-        Move-Item -Path $sourceItem.FullName -Destination $destinationPath
+        Move-Item -Path $sourceItem.FullName -Destination $destinationPath -Force
 
         $moveLog = "no equivalent found for '" + $sourceItem.Name + "'. Move to 'not-found' folder"
         Add-Content $logFile -value $moveLog
@@ -65,7 +65,7 @@ function MoveAtRightPlace {
         } else {
 
             $currentDestinationFolderPath = $targetFolderFullPath.ToString() + $currentReferenceFolderPath
-            Move-Item -Path $sourceItem.FullName -Destination $currentDestinationFolderPath
+            Move-Item -Path $sourceItem.FullName -Destination $currentDestinationFolderPath -Force
             
             $moveLog = "folder '" + $currentSourceFolderPath + "' moved to '" + $currentDestinationFolderPath + "'"
             Add-Content $logFile -value $moveLog
@@ -78,7 +78,7 @@ function MoveAtRightPlace {
         # it has to be moved in 'unknown\several-matches' to be processed manually later
 
         $destinationPath = $unknownFolder + "\several-matches\" + $sourceItem.Name
-        Move-Item -Path $sourceItem.FullName -Destination $destinationPath
+        Move-Item -Path $sourceItem.FullName -Destination $destinationPath -Force
 
         $moveLog = "several references found for '" + $sourceItem.Name + "'. Move to 'several-matches' folder"
         Add-Content $logFile -value $moveLog
