@@ -26,10 +26,10 @@ Add-content $Logfile -value "#####################################"
 Add-content $Logfile -value ""
 
 
-$fso = Get-ChildItem -Recurse -Path $takeOutArchivePath
-$fsoBU = Get-ChildItem -Recurse -Path $referenceFolderPath
+$takeOutFolder = Get-ChildItem -Recurse -Path $takeOutArchivePath
+$referenceFolder = Get-ChildItem -Recurse -Path $referenceFolderPath
 
-Compare-Object -ReferenceObject $fso -DifferenceObject $fsoBU
+Compare-Object -ReferenceObject $referenceFolder -DifferenceObject $takeOutFolder | Where-Object {$_.SideIndicator -eq "=>"}
 
 
 Add-content $Logfile -value ""
