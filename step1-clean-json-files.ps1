@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Permanently remove all *.json file from targeted folder, and recursed sub-folders
+    Permanently remove all *.json files from targeted folder, and recursed sub-folders
 .PARAMETER TargetFolder
     The folder in which deleting all JSON files
 .PARAMETER LogFile
