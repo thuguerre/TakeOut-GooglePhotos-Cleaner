@@ -1,7 +1,10 @@
-# Recursive file deletion
+# Step 1 - Recursive file deletion
 - [HOW TO RECURSIVELY DELETE FILES BASED OF FILE EXTENSION?](https://kevgriffin.com/powershell-how-to-recursively-delete-files-based-of-file-extension/)
 - [Want to use remove-item but save names to log file of files delete](https://www.vistax64.com/threads/want-to-use-remove-item-but-save-names-to-log-file-of-files-delete.259250/)
 - [Outputing Remove-Item to a log file](https://stackoverflow.com/questions/31796633/outputing-remove-item-to-a-log-file)
+
+# Step 2 - Recursive empty folder deletion
+- [How to Find Empty Folders with or without PowerShell](https://www.netwrix.com/how_to_find_empty_folders.html)
 
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
