@@ -9,6 +9,12 @@
 - [PowerTip: Find Number Elements in a PowerShell Array](https://devblogs.microsoft.com/scripting/powertip-find-number-elements-in-a-powershell-array/)
 - [ PowerShell : Boucle Do Until et Do While](https://www.it-connect.fr/powershell-boucle-do-until-et-do-while/)
 
+# Step 3 - Target Folder reorganization
+- [ForEach-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object?view=powershell-6)
+- [Powershell script to locate specific file/file name?](https://stackoverflow.com/questions/3428044/powershell-script-to-locate-specific-file-file-name)
+- [Replace()](https://ss64.com/ps/replace.html)
+- [Resolve-Path](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/resolve-path?view=powershell-6)
+
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
 - [about_Comment_Based_Help](https://docs.microsoft.com/en-us/previous-versions//dd819489(v=technet.10)?redirectedfrom=MSDN)
