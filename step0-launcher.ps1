@@ -10,7 +10,11 @@
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param([string]$takeOutFolderPath = ".\test-resources\test-folder", [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [string]$takeOutFolderPath = ".\test-resources\test-folder",
+        [string]$referenceFolderPath = ".\test-resources\reference-folder",
+        [string]$unknownFolderPath = ".\test-resources\unknown",
+        [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+
 
 Clear-Content $logFile
 
@@ -20,5 +24,14 @@ Invoke-Expression $step1Path
 
 
 # Step 2 : remove all empty folders from target folder
-$step1Path = ".\step2-clean-empty-folders.ps1 -targetFolder """ + $takeOutFolderPath + """ -logFile """ + $logFile + """"
-Invoke-Expression $step1Path
+$step2Path = ".\step2-clean-empty-folders.ps1 -targetFolder """ + $takeOutFolderPath + """ -logFile """ + $logFile + """"
+Invoke-Expression $step2path
+
+
+# Step 3 : reorganizing folders following the reference folders
+$step3Path = ".\step3-reorganize-folders.ps1" `
+    + " -targetFolder """ + $takeOutFolderPath + """" `
+    + " -referenceFolder """ + $referenceFolderPath + """" `
+    + " -unknownFolder """ + $unknownFolderPath + """" `
+    + " -logFile """ + $logFile + """"
+Invoke-Expression $step3Path
