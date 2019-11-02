@@ -2,14 +2,14 @@
 .SYNOPSIS
     Reorganize $takeOutArchivePath's folders (and its contained files) to reproduce a referenced folder's structure.
     This step is a pre-requisite to compare files between two similar folder structures (see step 4).
-    All folders from $takeOutArchivePath which are not found in $referenceFolder are moved to an 'unknown' folder to be processed manually.
+    All folders from $takeOutArchivePath which are not found in $referenceFolderPath are moved to an 'unknown' folder to be processed manually.
 .PARAMETER takeOutArchivePath
     The folder in which we are trying to reorganize folders.
     By default, ".\test-resources\take-out-archive" in order to perform tests.
-.PARAMETER ReferenceFolder
+.PARAMETER referenceFolderPath
     The folder we will try to copy the structure. It will not be modified at all.
     By default, ".\test-resources\reference-folder" in order to perform tests.
-.PARAMETER UnknownFolder
+.PARAMETER unknownFolderPath
     The folder path in which all unfound folders from $takeOutArchivePath will be moved to be processed manually later.
     By default, ".\test-resources\take-out-archive-unknown", outside $takeOutArchivePath in order to disturb process with pre-requisite technical files.
 .PARAMETER logFile
@@ -18,8 +18,8 @@
 #>
 
 param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
-        [string] $referenceFolder = ".\test-resources\reference-folder",
-        [string] $unknownFolder = ".\test-resources\take-out-archive-unknown",
+        [string] $referenceFolderPath = ".\test-resources\reference-folder",
+        [string] $unknownFolderPath = ".\test-resources\take-out-archive-unknown",
         [string] $logFile = ".\takeout-googlephotos-cleaner.log")
 
 
@@ -32,21 +32,21 @@ Add-content $Logfile -value ""
 
 
 $takeOutArchivePathFullPath = Resolve-Path $takeOutArchivePath
-$referenceFolderFullPath = Resolve-Path $referenceFolder
+$referenceFolderPathFullPath = Resolve-Path $referenceFolderPath
 
 function MoveAtRightPlace {
     param (
         [System.IO.DirectoryInfo] $sourceItem
     )
     
-    $possibleMatches = (Get-ChildItem $referenceFolder -Recurse -filter $sourceItem.Name | Where-Object { $_.PsIsContainer -eq $true }).Fullname
+    $possibleMatches = (Get-ChildItem $referenceFolderPath -Recurse -filter $sourceItem.Name | Where-Object { $_.PsIsContainer -eq $true }).Fullname
 
     if ( $possibleMatches.Count -eq 0 ) {
 
         # in this case, the folder has no found reference in referenced folder.
         # it has to be moved in 'unknown\not-found' to be processed manually later
 
-        $destinationPath = $unknownFolder + "\not-found\" + $sourceItem.Name
+        $destinationPath = $unknownFolderPath + "\not-found\" + $sourceItem.Name
         Move-Item -Path $sourceItem.FullName -Destination $destinationPath -Force
 
         $moveLog = "no equivalent found for '" + $sourceItem.Name + "'. Move to 'not-found' folder"
@@ -55,16 +55,16 @@ function MoveAtRightPlace {
     } elseif ( $possibleMatches.Count -eq 1) {
         
         $currentSourceFolderPath = $sourceItem.Fullname.Replace($takeOutArchivePathFullPath, "")
-        $currentReferenceFolderPath = $possibleMatches.Replace($referenceFolderFullPath, "")
+        $currentreferenceFolderPathPath = $possibleMatches.Replace($referenceFolderPathFullPath, "")
 
-        if ($currentSourceFolderPath -eq $currentReferenceFolderPath) {
+        if ($currentSourceFolderPath -eq $currentreferenceFolderPathPath) {
 
             $msg = "nothing to do for folder '" + $currentSourceFolderPath + "'"
             Add-Content $logFile -value $msg
 
         } else {
 
-            $currentDestinationFolderPath = $takeOutArchivePathFullPath.ToString() + $currentReferenceFolderPath
+            $currentDestinationFolderPath = $takeOutArchivePathFullPath.ToString() + $currentreferenceFolderPathPath
 
             if (-Not (Test-Path $currentDestinationFolderPath)) {
                 
@@ -88,7 +88,7 @@ function MoveAtRightPlace {
         # we do not know where to move it
         # it has to be moved in 'unknown\several-matches' to be processed manually later
 
-        $destinationPath = $unknownFolder + "\several-matches\" + $sourceItem.Name
+        $destinationPath = $unknownFolderPath + "\several-matches\" + $sourceItem.Name
         Move-Item -Path $sourceItem.FullName -Destination $destinationPath -Force
 
         $moveLog = "several references found for '" + $sourceItem.Name + "'. Move to 'several-matches' folder"

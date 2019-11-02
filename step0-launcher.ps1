@@ -60,7 +60,15 @@ Invoke-Expression $step2path
 # Step 3 : reorganizing folders following the reference folders
 $step3Path = ".\step3-reorganize-folders.ps1" `
     + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
-    + " -referenceFolder """ + $referenceFolderPath + """" `
-    + " -unknownFolder """ + $unknownFolderPath + """" `
+    + " -referenceFolderPath """ + $referenceFolderPath + """" `
+    + " -unknownFolderPath """ + $unknownFolderPath + """" `
     + " -logFile """ + $logFile + """"
 Invoke-Expression $step3Path
+
+
+# Step 4 : deleting files existing in reference folder
+$step4Path = ".\step4-deleting-existing-files.ps1" `
+    + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+    + " -referenceFolderPath """ + $referenceFolderPath + """" `
+    + " -logFile """ + $logFile + """"
+Invoke-Expression $step4Path
