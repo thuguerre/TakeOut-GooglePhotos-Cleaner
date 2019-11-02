@@ -67,6 +67,16 @@ function MoveAtRightPlace {
 
             $currentDestinationFolderPath = $targetFolderFullPath.ToString() + $currentReferenceFolderPath
 
+            if (-Not (Test-Path $currentDestinationFolderPath)) {
+                
+                # creating all the destination path, in order to be sure all directory levels are created
+                # indeed, if not, the Move-Item will fail because of missing part of the path
+                New-Item -Path $currentDestinationFolderPath -ItemType Directory -Force
+
+                # removing the lower level directoy, keeping the rest of the path
+                Remove-Item -Path $currentDestinationFolderPath -Force
+            }
+
             Move-Item -Path $sourceItem.FullName -Destination $currentDestinationFolderPath -Force
 
             $moveLog = "folder '" + $currentSourceFolderPath + "' moved to '" + $currentDestinationFolderPath + "'"
