@@ -21,16 +21,22 @@ Add-content $Logfile -value "####################################"
 Add-content $Logfile -value ""
 
 
-#selecting folders to delete
-$allEmptyFolders = (Get-ChildItem $targetFolder -Recurse `
-    | Where-Object { $_.PsIsContainer -eq $true } `
-    | Where-Object { $_.GetFiles().Count -eq 0 -and $_.GetDirectories().Count -eq 0 } ).Fullname
+Do {
 
-#logging folders to delete
-$allEmptyFolders | Add-Content $logFile
+    #selecting folders to delete
+    $allEmptyFolders = (Get-ChildItem $targetFolder -Recurse `
+        | Where-Object { $_.PsIsContainer -eq $true } `
+        | Where-Object { $_.GetFiles().Count -eq 0 -and $_.GetDirectories().Count -eq 0 } ).Fullname
 
-#deleting empty folders
-$allEmptyFolders | Remove-Item
+    #logging folders to delete
+    $allEmptyFolders | Add-Content $logFile
+
+    #deleting empty folders
+    if ( $allEmptyFolders.Count -gt 0 ) {
+        $allEmptyFolders | Remove-Item
+    }
+
+} While ( $allEmptyFolders.Count -gt 0 )
 
 
 Add-content $Logfile -value ""
