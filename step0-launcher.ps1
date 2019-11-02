@@ -8,26 +8,37 @@
 .PARAMETER logFile
     Path of the file where to log all this script's actions.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
-.PARAMETER emptyWorkFolder
-    Delete definitively empty folders in work folders, used during test.
-    By default, set to 0, not to delete accidentaly files from original folder.
-    Set to 1 if you want to empty work folders.
+.PARAMETER testProcess
+    Clean test work folders by definitively removing all $takeOutFolderPath folders and files.
+    Then copying the test-folder as the Take Out Archive.
 #>
 
-param(  [string] $takeOutFolderPath = ".\test-resources\test-folder",
+param(  [string] $takeOutFolderPath = ".\test-resources\take-out-archive",
         [string] $referenceFolderPath = ".\test-resources\reference-folder",
-        [string] $unknownFolderPath = ".\test-resources\unknown",
+        [string] $unknownFolderPath = ".\test-resources\take-out-archive-unknown",
         [string] $logFile = ".\takeout-googlephotos-cleaner.log",
-        [bool] $emptyWorkFolders = 0)
+        [bool] $testProcess = 0)
 
 
 Clear-Content $logFile
 
-if ( $emptyWorkFolders ) {
+# if we are launching tests, preparing folders
+if ( $testProcess ) {
 
-    # Step 0.1 : prepare work folders by deleting all empty folders from previous tests
-    $step01Path = ".\step0.1-clean-empty-folders-in-unknown.ps1 -targetFolder """ + $unknownFolderPath + """ -logFile """ + $logFile + """"
-    Invoke-Expression $step01Path
+    # another security to prevent original files to delete
+    if ( $takeOutFolderPath -eq ".\test-resources\take-out-archive" ) {
+
+        # erasing, if required, the Take Out Archive folder, and initialize it with the Test Case
+        if (Test-Path $takeOutFolderPath) { Remove-Item $takeOutFolderPath }
+        New-Item -Path $takeOutFolderPath -ItemType Directory -Force | Out-Null
+        Copy-Item -Path ".\test-resources\test-folder" -Destination $takeOutFolderPath -Recurse
+
+        # erasing, if required, Unkown work folders, and initialize it with expected sub-folders
+        if (Test-Path $unknownFolderPath) { Remove-Item $unknownFolderPath }
+        New-Item -Path $unknownFolderPath -ItemType Directory -Force | Out-Null
+        New-Item -Path $unknownFolderPath"\not-found" -ItemType Directory -Force | Out-Null
+        New-Item -Path $unknownFolderPath"\several-matches" -ItemType Directory -Force | Out-Null
+    }
 }
 
 

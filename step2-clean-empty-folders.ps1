@@ -3,13 +3,14 @@
     Permanently remove all empty folders from targeted folder, and recursed sub-folders
 .PARAMETER TargetFolder
     The folder in which deleting all empty folders.
-    By default, ".\test-resources\test-folder" in order to perform tests.
+    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER LogFile
     Path to the file where to log all removed folders.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param([string]$targetFolder = ".\test-resources\test-folder", [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [string] $targetFolder = ".\test-resources\take-out-archive",
+        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
 
 
 

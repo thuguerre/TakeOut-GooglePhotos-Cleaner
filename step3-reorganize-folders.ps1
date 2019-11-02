@@ -5,22 +5,22 @@
     All folders from $targetFolder which are not found in $referenceFolder are moved to an 'unknown' folder to be processed manually.
 .PARAMETER TargetFolder
     The folder in which we are trying to reorganize folders.
-    By default, ".\test-resources\test-folder" in order to perform tests.
+    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER ReferenceFolder
     The folder we will try to copy the structure. It will not be modified at all.
     By default, ".\test-resources\reference-folder" in order to perform tests.
 .PARAMETER UnknownFolder
     The folder path in which all unfound folders from $targetFolder will be moved to be processed manually later.
-    By default, ".\test-resources\unknown", outside $targetFolder in order to disturb process with pre-requisite technical files.
+    By default, ".\test-resources\take-out-archive-unknown", outside $targetFolder in order to disturb process with pre-requisite technical files.
 .PARAMETER LogFile
     Path to the file where to log all folder moves.
     By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param(  [string]$targetFolder = ".\test-resources\test-folder",
-        [string]$referenceFolder = ".\test-resources\reference-folder",
-        [string]$unknownFolder = ".\test-resources\unknown",
-        [string]$logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [string] $targetFolder = ".\test-resources\take-out-archive",
+        [string] $referenceFolder = ".\test-resources\reference-folder",
+        [string] $unknownFolder = ".\test-resources\take-out-archive-unknown",
+        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
 
 
 Add-content $Logfile -value ""
