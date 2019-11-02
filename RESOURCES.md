@@ -5,6 +5,7 @@
 
 # Step 2 - Recursive empty folder deletion
 - [How to Find Empty Folders with or without PowerShell](https://www.netwrix.com/how_to_find_empty_folders.html)
+- [Where-Object vs. the Where method: Array filtering in PowerShell](https://4sysops.com/archives/where-object-vs-the-where-method-array-filtering-in-powershell/)
 
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
