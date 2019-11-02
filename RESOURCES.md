@@ -14,6 +14,7 @@
 - [Powershell script to locate specific file/file name?](https://stackoverflow.com/questions/3428044/powershell-script-to-locate-specific-file-file-name)
 - [Replace()](https://ss64.com/ps/replace.html)
 - [Resolve-Path](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/resolve-path?view=powershell-6)
+- [Error: "Could not find a part of the path..."](https://www.reddit.com/r/PowerShell/comments/7u437b/error_could_not_find_a_part_of_the_path/)
 
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
