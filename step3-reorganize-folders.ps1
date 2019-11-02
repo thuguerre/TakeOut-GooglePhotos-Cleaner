@@ -56,6 +56,7 @@ function MoveAtRightPlace {
         
         $currentSourceFolderPath = $sourceItem.Fullname.Replace($targetFolderFullPath, "")
         $currentReferenceFolderPath = $possibleMatches.Replace($referenceFolderFullPath, "")
+        Write-Host $currentSourceFolderPath" > "$currentReferenceFolderPath
 
         if ($currentSourceFolderPath -eq $currentReferenceFolderPath) {
 
@@ -65,8 +66,9 @@ function MoveAtRightPlace {
         } else {
 
             $currentDestinationFolderPath = $targetFolderFullPath.ToString() + $currentReferenceFolderPath
+
             Move-Item -Path $sourceItem.FullName -Destination $currentDestinationFolderPath -Force
-            
+
             $moveLog = "folder '" + $currentSourceFolderPath + "' moved to '" + $currentDestinationFolderPath + "'"
             Add-Content $logFile -value $moveLog
         }
