@@ -11,6 +11,13 @@
 
 param([string]$takeOutFolderPath = "C:\take-out-archive\test-folder", [string]$logFile = "C:\take-out-archive\script.log")
 
+Clear-Content $logFile
+
 # Step 1 : remove all JSON files from target folder
 $step1Path = ".\step1-clean-json-files.ps1 -targetFolder """ + $takeOutFolderPath + """ -logFile """ + $logFile + """"
+Invoke-Expression $step1Path
+
+
+# Step 2 : remove all empty folders from target folder
+$step1Path = ".\step2-clean-empty-folders.ps1 -targetFolder """ + $takeOutFolderPath + """ -logFile """ + $logFile + """"
 Invoke-Expression $step1Path
