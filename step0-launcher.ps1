@@ -74,7 +74,9 @@ if ($LastExitCode -ne 0) {
 
 
 # Step 2 : remove all empty folders from target folder
-$step2Path = ".\step2-clean-empty-folders.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """ -logFile """ + $logFile + """"
+$step2Path = ".\step2-clean-empty-folders.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """" `
+    + "-logFile """ + $logFile + """" `
+    + "-testing """ + $testing + """"
 Invoke-Expression $step2path
 if ($LastExitCode -ne 0) {
     Write-Host "Step 2 has failed" -ForegroundColor Red
