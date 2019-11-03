@@ -29,7 +29,8 @@ Add-content $Logfile -value ""
 $takeOutFolder = Get-ChildItem -Recurse -Path $takeOutArchivePath
 $referenceFolder = Get-ChildItem -Recurse -Path $referenceFolderPath
 
-Compare-Object -ReferenceObject $referenceFolder -DifferenceObject $takeOutFolder | Where-Object {$_.SideIndicator -eq "=>"}
+Compare-Object -ReferenceObject $referenceFolder -DifferenceObject $takeOutFolder -IncludeEqual -ExcludeDifferent -Passthru `
+    | % {$_.FullName}
 
 
 Add-content $Logfile -value ""
