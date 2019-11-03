@@ -40,7 +40,7 @@ if (Test-Path $takeOutArchivePath"\file-1-to-ignore.txt") { exit 1 }
         if (Test-Path $takeOutArchivePath"\folder-3\folder-3.2\file-3.2.1-to-ignore.txt") { exit 1 }
 
     # folder 6
-    if (Test-Path $takeOutArchivePath"\folder-6") { exit 1 }
+    if (-Not (Test-Path $takeOutArchivePath"\folder-6")) { exit 1 }
 
         # folder 6.1
         if (Test-Path $takeOutArchivePath"\folder-6\folder-6.1") { exit 1 }
@@ -48,6 +48,10 @@ if (Test-Path $takeOutArchivePath"\file-1-to-ignore.txt") { exit 1 }
             # folder 6.1.1
             if (Test-Path $takeOutArchivePath"\folder-6\folder-6.1\folder-6.1.1-2-levels-to-create") { exit 1 }
             if (Test-Path $takeOutArchivePath"\folder-6\folder-6.1\folder-6.1.1-2-levels-to-create\file-6.1.1.1-to-ignore.txt") { exit 1 }
+
+        # folder 6.2
+        if (-Not (Test-Path $takeOutArchivePath"\folder-6\folder-6.2")) { exit 1 }
+        if (-Not (Test-Path $takeOutArchivePath"\folder-6\folder-6.2\file-6.2.1-to-synchronize.txt")) { exit 1 }
 
 # unknown folder
 if (-Not (Test-Path $unknownFolderPath)) { exit 1 }

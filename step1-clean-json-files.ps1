@@ -41,9 +41,11 @@ if ( $testing -eq "YES" ) {
         + " -referenceFolderPath """ + $referenceFolderPath + """" `
         + " -unknownFolderPath """ + $unknownFolderPath + """" `
         + " -logFile """ + $logFile + """"
+        
     Invoke-Expression $test1Path
+
     if ($LastExitCode -ne 0) {
-        Write-Host "Step 1 post tests fail" -ForegroundColor Red
+        Write-Host "Step 1 Post-Tests : `t`t FAILED" -ForegroundColor Red
         exit $LastExitCode
     }
 }

@@ -67,6 +67,10 @@ if (Test-Path $takeOutArchivePath"\file-3-to-delete.json") { exit 1 }
     if (-Not (Test-Path $takeOutArchivePath"\folder-6.1.1-2-levels-to-create")) { exit 1 }
     if (-Not (Test-Path $takeOutArchivePath"\folder-6.1.1-2-levels-to-create\file-6.1.1.1-to-ignore.txt")) { exit 1 }
 
+    # folder 6.2
+    if (-Not (Test-Path $takeOutArchivePath"\folder-6.2")) { exit 1 }
+    if (-Not (Test-Path $takeOutArchivePath"\folder-6.2\file-6.2.1-to-synchronize.txt")) { exit 1 }
+
 
 # unknown folder
 if (-Not (Test-Path $unknownFolderPath)) { exit 1 }

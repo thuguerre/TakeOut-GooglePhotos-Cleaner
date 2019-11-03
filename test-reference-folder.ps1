@@ -68,6 +68,11 @@ if (-Not (Test-Path $referenceFolderPath"\file-1-to-ignore.txt")) { exit 1 }
             if (-Not (Test-Path $referenceFolderPath"\folder-6\folder-6.1\folder-6.1.1-2-levels-to-create")) { exit 1 }
             if (-Not (Test-Path $referenceFolderPath"\folder-6\folder-6.1\folder-6.1.1-2-levels-to-create\file-6.1.1.1-to-ignore.txt")) { exit 1 }
 
+        # folder 6.2
+        if (-Not (Test-Path $referenceFolderPath"\folder-6\folder-6.2")) { exit 1 }
+        if (Test-Path $referenceFolderPath"\folder-6\folder-6.2\file-6.2.1-to-synchronize.txt") { exit 1 }
+        if (-Not (Test-Path $referenceFolderPath"\folder-6\folder-6.2\file-6.2.2-only-in-reference.txt")) { exit 1 }
+
 
 Write-Host "Reference Folder Tests : `t SUCCESS" -ForegroundColor Green
 exit 0

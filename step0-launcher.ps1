@@ -57,7 +57,7 @@ if ( $testing -eq "YES" ) {
         Invoke-Expression $test0Path
         
         if ($LastExitCode -ne 0) {
-            Write-Host "Step 0 post tests fail" -ForegroundColor Red
+            Write-Host "Step 0 Post-Tests : `t`t FAILED" -ForegroundColor Red
             exit $LastExitCode
         }
     }
