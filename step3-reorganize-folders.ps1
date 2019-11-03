@@ -5,22 +5,19 @@
     All folders from $takeOutArchivePath which are not found in $referenceFolderPath are moved to an 'unknown' folder to be processed manually.
 .PARAMETER takeOutArchivePath
     The folder in which we are trying to reorganize folders.
-    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER referenceFolderPath
     The folder we will try to copy the structure. It will not be modified at all.
-    By default, ".\test-resources\reference-folder" in order to perform tests.
 .PARAMETER unknownFolderPath
     The folder path in which all unfound folders from $takeOutArchivePath will be moved to be processed manually later.
-    By default, ".\test-resources\take-out-archive-unknown", outside $takeOutArchivePath in order to disturb process with pre-requisite technical files.
 .PARAMETER logFile
     Path to the file where to log all folder moves.
-    By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 #>
 
-param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
-        [string] $referenceFolderPath = ".\test-resources\reference-folder",
-        [string] $unknownFolderPath = ".\test-resources\take-out-archive-unknown",
-        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
+        [Parameter(Mandatory=$true)] [string] $referenceFolderPath,
+        [Parameter(Mandatory=$true)] [string] $unknownFolderPath,
+        [Parameter(Mandatory=$true)] [string] $logFile,
+        [Parameter(Mandatory=$true)] [string] $testing)
 
 
 Add-content $Logfile -value ""
@@ -119,3 +116,19 @@ Add-content $Logfile -value "################################"
 Add-content $Logfile -value "### end reorganizing folders ###"
 Add-content $Logfile -value "################################"
 Add-content $Logfile -value ""
+
+
+if ( $testing -eq "YES" ) {
+
+    # performing auto-verification
+    $test3Path = ".\test-step3-post.ps1" `
+        + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+        + " -referenceFolderPath """ + $referenceFolderPath + """" `
+        + " -unknownFolderPath """ + $unknownFolderPath + """" `
+        + " -logFile """ + $logFile + """"
+    Invoke-Expression $test3Path
+    if ($LastExitCode -ne 0) {
+        Write-Host "Step 3 post tests fails" -ForegroundColor Red
+        exit $LastExitCode
+    }
+}

@@ -89,7 +89,8 @@ $step3Path = ".\step3-reorganize-folders.ps1" `
     + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
     + " -referenceFolderPath """ + $referenceFolderPath + """" `
     + " -unknownFolderPath """ + $unknownFolderPath + """" `
-    + " -logFile """ + $logFile + """"
+    + " -logFile """ + $logFile + """" `
+    + "-testing """ + $testing + """"
 Invoke-Expression $step3Path
 if ($LastExitCode -ne 0) {
     Write-Host "Step 3 has failed" -ForegroundColor Red
