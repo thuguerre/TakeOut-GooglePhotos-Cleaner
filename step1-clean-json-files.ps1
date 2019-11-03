@@ -3,14 +3,15 @@
     Permanently remove all *.json files from targeted folder, and recursed sub-folders
 .PARAMETER takeOutArchivePath
     The folder in which deleting all JSON files
-    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER logFile
     Path to the file where to log all removed files.
-    By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
+.PARAMETER testing
+    If set to "YES", launch post auto-tests
 #>
 
-param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
-        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
+        [Parameter(Mandatory=$true)] [string] $logFile,
+        [Parameter(Mandatory=$true)] [string] $testing)
 
 
 Add-content $Logfile -value ""
@@ -31,3 +32,18 @@ Add-Content $logFile -value "### end deleting JSON files ###"
 Add-content $Logfile -value "###############################"
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""
+
+if ( $testing -eq "YES" ) {
+
+    # performing auto-verification
+    $test1Path = ".\test-step1-post.ps1" `
+        + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+        + " -referenceFolderPath """ + $referenceFolderPath + """" `
+        + " -unknownFolderPath """ + $unknownFolderPath + """" `
+        + " -logFile """ + $logFile + """"
+    Invoke-Expression $test1Path
+    if ($LastExitCode -ne 0) {
+        Write-Host "Step 1 post tests fails" -ForegroundColor Red
+        exit $LastExitCode
+    }
+}

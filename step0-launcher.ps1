@@ -63,7 +63,9 @@ if ( $testing -eq "YES" ) {
 
 
 # Step 1 : remove all JSON files from target folder
-$step1Path = ".\step1-clean-json-files.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """ -logFile """ + $logFile + """"
+$step1Path = ".\step1-clean-json-files.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """" `
+    + "-logFile """ + $logFile + """" `
+    + "-testing """ + $testing + """"
 Invoke-Expression $step1Path
 if ($LastExitCode -ne 0) {
     Write-Host "Step 1 has failed" -ForegroundColor Red

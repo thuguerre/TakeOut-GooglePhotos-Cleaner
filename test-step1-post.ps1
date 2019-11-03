@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Verify if all pre-requisite actions to perform tests have been well done.
+    Verify if all JSON files have well been deleted.
 .PARAMETER takeOutArchivePath
     Path to the root folder containing Google Photos archive.
 .PARAMETER referenceFolderPath
@@ -20,14 +20,14 @@ param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
 # root folder
 if (-Not (Test-Path $takeOutArchivePath)) { exit 1 }
 if (-Not (Test-Path $takeOutArchivePath"\file-1-to-ignore.txt")) { exit 1 }
-if (-Not (Test-Path $takeOutArchivePath"\file-2-to-delete.json")) { exit 1 }
-if (-Not (Test-Path $takeOutArchivePath"\file-3-to-delete.json")) { exit 1 }
+if (Test-Path $takeOutArchivePath"\file-2-to-delete.json") { exit 1 }
+if (Test-Path $takeOutArchivePath"\file-3-to-delete.json") { exit 1 }
 
     # folder 1
     if (-Not (Test-Path $takeOutArchivePath"\folder-1")) { exit 1 }
     if (-Not (Test-Path $takeOutArchivePath"\folder-1\file-1.1-to-ignore.txt")) { exit 1 }
-    if (-Not (Test-Path $takeOutArchivePath"\folder-1\file-1.2-to-delete.json")) { exit 1 } 
-    if (-Not (Test-Path $takeOutArchivePath"\folder-1\file-1.3-to-delete.json")) { exit 1 } 
+    if (Test-Path $takeOutArchivePath"\folder-1\file-1.2-to-delete.json") { exit 1 } 
+    if (Test-Path $takeOutArchivePath"\folder-1\file-1.3-to-delete.json") { exit 1 } 
     if (-Not (Test-Path $takeOutArchivePath"\folder-1\file-1.4-to-synchronize.txt")) { exit 1 }
 
         # folder 1.1
@@ -36,12 +36,12 @@ if (-Not (Test-Path $takeOutArchivePath"\file-3-to-delete.json")) { exit 1 }
 
     # folder 2
     if (-Not (Test-Path $takeOutArchivePath"\folder-2-to-delete")) { exit 1 }
-    if (-Not (Test-Path $takeOutArchivePath"\folder-2-to-delete\file-2.1-to-delete.json")) { exit 1 }
-    if (-Not (Test-Path $takeOutArchivePath"\folder-2-to-delete\file-2.2-to-delete.json")) { exit 1 } 
+    if (Test-Path $takeOutArchivePath"\folder-2-to-delete\file-2.1-to-delete.json") { exit 1 }
+    if (Test-Path $takeOutArchivePath"\folder-2-to-delete\file-2.2-to-delete.json") { exit 1 } 
 
         # folder 2.1
         if (-Not (Test-Path $takeOutArchivePath"\folder-2-to-delete\folder-2.1-to-delete")) { exit 1 }
-        if (-Not (Test-Path $takeOutArchivePath"\folder-2-to-delete\folder-2.1-to-delete\file-2.1.1-to-delete.json")) { exit 1 }
+        if (Test-Path $takeOutArchivePath"\folder-2-to-delete\folder-2.1-to-delete\file-2.1.1-to-delete.json") { exit 1 }
 
     # folder 3
     if (-Not (Test-Path $takeOutArchivePath"\folder-3")) { exit 1 }
@@ -49,7 +49,7 @@ if (-Not (Test-Path $takeOutArchivePath"\file-3-to-delete.json")) { exit 1 }
 
         # folder 3.1
         if (-Not (Test-Path $takeOutArchivePath"\folder-3\folder-3.1-to-delete")) { exit 1 }
-        if (-Not (Test-Path $takeOutArchivePath"\folder-3\folder-3.1-to-delete\file-3.1.1-to-delete.json")) { exit 1 }
+        if (Test-Path $takeOutArchivePath"\folder-3\folder-3.1-to-delete\file-3.1.1-to-delete.json") { exit 1 }
     
     # folder 3.2
     if (-Not (Test-Path $takeOutArchivePath"\folder-3.2")) { exit 1 }
