@@ -19,6 +19,7 @@
 # Step 4 - Deleting existing files
 - [Easily Compare Two Folders by Using PowerShell](https://devblogs.microsoft.com/scripting/easily-compare-two-folders-by-using-powershell/)
 - [Compare-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/compare-object?view=powershell-6)
+- [Compare-Object directory path](https://powershell.org/forums/topic/compare-object-directory-path/)
 
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
