@@ -53,7 +53,9 @@ if ( $testing -eq "YES" ) {
             + " -referenceFolderPath """ + $referenceFolderPath + """" `
             + " -unknownFolderPath """ + $unknownFolderPath + """" `
             + " -logFile """ + $logFile + """"
+        
         Invoke-Expression $test0Path
+        
         if ($LastExitCode -ne 0) {
             Write-Host "Step 0 post tests fails" -ForegroundColor Red
             exit $LastExitCode
@@ -63,10 +65,13 @@ if ( $testing -eq "YES" ) {
 
 
 # Step 1 : remove all JSON files from target folder
-$step1Path = ".\step1-clean-json-files.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """" `
-    + "-logFile """ + $logFile + """" `
-    + "-testing """ + $testing + """"
+$step1Path = ".\step1-clean-json-files.ps1" `
+    + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+    + " -logFile """ + $logFile + """" `
+    + " -testing """ + $testing + """"
+
 Invoke-Expression $step1Path
+
 if ($LastExitCode -ne 0) {
     Write-Host "Step 1 has failed" -ForegroundColor Red
     exit $LastExitCode
@@ -74,10 +79,13 @@ if ($LastExitCode -ne 0) {
 
 
 # Step 2 : remove all empty folders from target folder
-$step2Path = ".\step2-clean-empty-folders.ps1 -takeOutArchivePath """ + $takeOutArchivePath + """" `
-    + "-logFile """ + $logFile + """" `
-    + "-testing """ + $testing + """"
+$step2Path = ".\step2-clean-empty-folders.ps1" `
+    + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+    + " -logFile """ + $logFile + """" `
+    + " -testing """ + $testing + """"
+
 Invoke-Expression $step2path
+
 if ($LastExitCode -ne 0) {
     Write-Host "Step 2 has failed" -ForegroundColor Red
     exit $LastExitCode
@@ -91,7 +99,9 @@ $step3Path = ".\step3-reorganize-folders.ps1" `
     + " -unknownFolderPath """ + $unknownFolderPath + """" `
     + " -logFile """ + $logFile + """" `
     + "-testing """ + $testing + """"
+
 Invoke-Expression $step3Path
+
 if ($LastExitCode -ne 0) {
     Write-Host "Step 3 has failed" -ForegroundColor Red
     exit $LastExitCode
@@ -102,8 +112,12 @@ if ($LastExitCode -ne 0) {
 $step4Path = ".\step4-deleting-existing-files.ps1" `
     + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
     + " -referenceFolderPath """ + $referenceFolderPath + """" `
-    + " -logFile """ + $logFile + """"
+    + " -unknownFolderPath """ + $unknownFolderPath + """" `
+    + " -logFile """ + $logFile + """" `
+    + "-testing """ + $testing + """"
+
 Invoke-Expression $step4Path
+
 if ($LastExitCode -ne 0) {
     Write-Host "Step 4 has failed" -ForegroundColor Red
     exit $LastExitCode

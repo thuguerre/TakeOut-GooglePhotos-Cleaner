@@ -11,6 +11,8 @@
     The folder path in which all unfound folders from $takeOutArchivePath will be moved to be processed manually later.
 .PARAMETER logFile
     Path to the file where to log all folder moves.
+.PARAMETER testing
+    If set to "YES", launch post auto-tests
 #>
 
 param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,

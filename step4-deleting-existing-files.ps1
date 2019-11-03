@@ -4,18 +4,22 @@
     It will let only the files to later manually synchronize into Reference Folder.
 .PARAMETER takeOutArchivePath
     The folder in which deleting existing files.
-    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER referenceFolderPath
     The folder containing referent files, to compare with. It will not be modified at all.
-    By default, ".\test-resources\reference-folder" in order to perform tests.
+.PARAMETER unknownFolderPath
+    The folder path in which all unfound folders from $takeOutArchivePath will be moved to be processed manually later.
+    Only used to perform auto-tests.
 .PARAMETER logFile
     Path to the file where to log all files deletion.
-    By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
+.PARAMETER testing
+    If set to "YES", launch post auto-tests
 #>
 
-param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
-        [string] $referenceFolderPath = ".\test-resources\reference-folder",
-        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
+        [Parameter(Mandatory=$true)] [string] $referenceFolderPath,
+        [Parameter(Mandatory=$true)] [string] $unknownFolderPath,
+        [Parameter(Mandatory=$true)] [string] $logFile,
+        [Parameter(Mandatory=$true)] [string] $testing)
 
 
 Add-content $Logfile -value ""
@@ -67,3 +71,18 @@ Add-content $Logfile -value "### end deleting existing files ###"
 Add-content $Logfile -value "###################################"
 Add-content $Logfile -value ""
 
+
+if ( $testing -eq "YES" ) {
+
+    # performing auto-verification
+    $test4Path = ".\test-step4-post.ps1" `
+        + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+        + " -referenceFolderPath """ + $referenceFolderPath + """" `
+        + " -unknownFolderPath """ + $unknownFolderPath + """" `
+        + " -logFile """ + $logFile + """"
+    Invoke-Expression $test4Path
+    if ($LastExitCode -ne 0) {
+        Write-Host "Step 4 post tests fails" -ForegroundColor Red
+        exit $LastExitCode
+    }
+}
