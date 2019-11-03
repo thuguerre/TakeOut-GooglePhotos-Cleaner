@@ -31,3 +31,4 @@
 - [About Execution Policies](https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-6)
 - [PowerShell ABC's - P is for Parameters](https://devcentral.f5.com/s/articles/powershell-abcs-p-is-for-parameters)
 - [Invoke a second script with arguments from a script](https://stackoverflow.com/questions/12850487/invoke-a-second-script-with-arguments-from-a-script)
+- [Returning an exit code from a PowerShell script](https://weblogs.asp.net/soever/returning-an-exit-code-from-a-powershell-script)

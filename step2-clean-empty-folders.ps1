@@ -3,14 +3,15 @@
     Permanently remove all empty folders from targeted folder, and recursed sub-folders
 .PARAMETER takeOutArchivePath
     The folder in which deleting all empty folders.
-    By default, ".\test-resources\take-out-archive" in order to perform tests.
 .PARAMETER logFile
     Path to the file where to log all removed folders.
-    By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
+.PARAMETER testing
+    If set to "YES", launch post auto-tests
 #>
 
-param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
-        [string] $logFile = ".\takeout-googlephotos-cleaner.log")
+param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
+        [Parameter(Mandatory=$true)] [string] $logFile,
+        [Parameter(Mandatory=$true)] [string] $testing)
 
 
 
@@ -46,3 +47,21 @@ Add-Content $logFile -value "### end deleting empty folders ###"
 Add-content $Logfile -value "##################################"
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""
+
+
+if ( $testing -eq "YES" ) {
+
+    # performing auto-verification
+    $test2Path = ".\test-step2-post.ps1" `
+        + " -takeOutArchivePath """ + $takeOutArchivePath + """" `
+        + " -referenceFolderPath """ + $referenceFolderPath + """" `
+        + " -unknownFolderPath """ + $unknownFolderPath + """" `
+        + " -logFile """ + $logFile + """"
+        
+    Invoke-Expression $test2Path
+
+    if ($LastExitCode -ne 0) {
+        Write-Host "Step 2 Post-Tests : `t`t FAILED" -ForegroundColor Red
+        exit $LastExitCode
+    }
+}
