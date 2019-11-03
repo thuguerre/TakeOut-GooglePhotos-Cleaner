@@ -60,6 +60,19 @@ if (-Not (Test-Path $takeOutArchivePath"\file-1-to-ignore.txt")) { exit 1 }
     if (-Not (Test-Path $takeOutArchivePath"\folder-6.1.1-2-levels-to-create\file-6.1.1.1-to-ignore.txt")) { exit 1 }
 
 
+# unknown folder
+if (-Not (Test-Path $unknownFolderPath)) { exit 1 }
+if ((Get-Item $unknownFolderPath).GetFiles().Count -ne 0) { exit 1 }
+
+    # Not Found folder
+    if (-Not (Test-Path $unknownFolderPath"\not-found")) { exit 1 }
+    if ((Get-Item $unknownFolderPath"\not-found").GetFiles().Count -ne 0) { exit 1 }
+
+    # Several Matches folder
+    if (-Not (Test-Path $unknownFolderPath"\several-matches")) { exit 1 }
+    if ((Get-Item $unknownFolderPath"\several-matches").GetFiles().Count -ne 0) { exit 1 }
+
+    
 # TODO launch verification on $referenceFolder
 
 exit 0
