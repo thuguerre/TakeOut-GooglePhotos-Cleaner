@@ -16,6 +16,11 @@
 - [Resolve-Path](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/resolve-path?view=powershell-6)
 - [Error: "Could not find a part of the path..."](https://www.reddit.com/r/PowerShell/comments/7u437b/error_could_not_find_a_part_of_the_path/)
 
+# Step 4 - Deleting existing files
+- [Easily Compare Two Folders by Using PowerShell](https://devblogs.microsoft.com/scripting/easily-compare-two-folders-by-using-powershell/)
+- [Compare-Object](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/compare-object?view=powershell-6)
+- [Compare-Object directory path](https://powershell.org/forums/topic/compare-object-directory-path/)
+
 # Comments
 - [How do you comment out code in PowerShell?](https://stackoverflow.com/questions/7342597/how-do-you-comment-out-code-in-powershell)
 - [about_Comment_Based_Help](https://docs.microsoft.com/en-us/previous-versions//dd819489(v=technet.10)?redirectedfrom=MSDN)
