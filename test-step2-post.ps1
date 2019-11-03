@@ -72,8 +72,21 @@ if ((Get-Item $unknownFolderPath).GetFiles().Count -ne 0) { exit 1 }
     if (-Not (Test-Path $unknownFolderPath"\several-matches")) { exit 1 }
     if ((Get-Item $unknownFolderPath"\several-matches").GetFiles().Count -ne 0) { exit 1 }
 
+ 
     
-# TODO launch verification on $referenceFolder
+# testing Reference Folder
+$testReferenceFolderPath = ".\test-reference-folder.ps1" `
+    + " -referenceFolderPath """ + $referenceFolderPath + """" `
+    + " -logFile """ + $logFile + """"
+
+Invoke-Expression $testReferenceFolderPath
+
+if ($LastExitCode -ne 0) {
+    Write-Host "Reference Folder Tests : FAILED" -ForegroundColor Red
+    exit $LastExitCode
+}
+
+
 
 Write-Host "Step 2 post tests success" -ForegroundColor Green
 exit 0
