@@ -69,5 +69,5 @@ if (-Not (Test-Path $referenceFolderPath"\file-1-to-ignore.txt")) { exit 1 }
             if (-Not (Test-Path $referenceFolderPath"\folder-6\folder-6.1\folder-6.1.1-2-levels-to-create\file-6.1.1.1-to-ignore.txt")) { exit 1 }
 
 
-Write-Host "Reference folder has been successfully verified" -ForegroundColor Green
+Write-Host "Reference Folder Tests : `t SUCCESS" -ForegroundColor Green
 exit 0

@@ -79,11 +79,11 @@ $testReferenceFolderPath = ".\test-reference-folder.ps1" `
 Invoke-Expression $testReferenceFolderPath
 
 if ($LastExitCode -ne 0) {
-    Write-Host "Reference Folder Tests : FAILED" -ForegroundColor Red
+    Write-Host "Reference Folder Tests : `t FAILED" -ForegroundColor Red
     exit $LastExitCode
 }
 
 
 
-Write-Host "Step 4 post tests success" -ForegroundColor Green
+Write-Host "Step 4 Post-Tests : `t`t SUCCESS" -ForegroundColor Green
 exit 0
