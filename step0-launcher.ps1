@@ -4,38 +4,50 @@
     It allows lauching separately each step manually if required.
 .PARAMETER takeOutArchivePath
     Path to the root folder containing Google Photos archive.
-    By default, ".\test-resources\take-out-archive" in order to perform tests.
+    By default, ".\workspace\take-out-archive" in order to perform tests, ignored by GIT.
 .PARAMETER referenceFolderPath
     The folder containing referent files, to compare with. It will not be modified at all.
     By default, ".\test-resources\reference-folder" in order to perform tests.
 .PARAMETER unknownFolderPath
     Path to the folder where to store folders and files for what we do not know what to do.
-    By default, ".\test-resources\take-out-archive-unknown" in order to perform tests.
+    By default, ".\workspace\take-out-archive-unknown" in order to perform tests, ignored by GIT.
 .PARAMETER logFile
     Path of the file where to log all this script's actions.
-    By default, ".\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
+    By default, ".\workspace\takeout-googlephotos-cleaner.log" in root folder, ignored by GIT.
 .PARAMETER testing
     DO NOT SET TO 'YES' IF WORKING ON ORIGINAL FILES !!!
-    If set to 'YES' :
+    If set to 'YES':
         - Cleaning test work folders by definitively removing all $takeOutArchivePath and $unknownFolderPath folders and files.
         - Then copying the test-folder as the Take Out Archive.
         - Performing auto-tests at each steps. If one test fails, script stops.
+    If set to 'CLEAN':
+        - Deleting '.\workspace' folder
+        - Stoping script.
 #>
 
-param(  [string] $takeOutArchivePath = ".\test-resources\take-out-archive",
+param(  [string] $takeOutArchivePath = ".\workspace\take-out-archive",
         [string] $referenceFolderPath = ".\test-resources\reference-folder",
-        [string] $unknownFolderPath = ".\test-resources\take-out-archive-unknown",
-        [string] $logFile = ".\takeout-googlephotos-cleaner.log",
+        [string] $unknownFolderPath = ".\workspace\take-out-archive-unknown",
+        [string] $logFile = ".\workspace\takeout-googlephotos-cleaner.log",
         [string] $testing = "NO")
 
 
-Clear-Content $logFile
+# special case: if user has asked to clean script, we delete workspace
+if ( $testing -eq "CLEAN" ) {
+    if (Test-Path ".\workspace") { Remove-Item ".\workspace" -Recurse -Force }
+    exit 0
+}
+
+
+# starting by deleting all previous logs
+if (Test-Path $logFile) { Clear-Content $logFile }
+
 
 # if we are launching tests, preparing folders
 if ( $testing -eq "YES" ) {
 
     # another security to prevent original files to delete
-    if ( $takeOutArchivePath -eq ".\test-resources\take-out-archive" ) {
+    if ( $takeOutArchivePath -eq ".\workspace\take-out-archive" ) {
 
         # erasing, if required, the Take Out Archive folder, and initialize it with the Test Case
         if (Test-Path $takeOutArchivePath) { Remove-Item $takeOutArchivePath -Recurse -Force }
