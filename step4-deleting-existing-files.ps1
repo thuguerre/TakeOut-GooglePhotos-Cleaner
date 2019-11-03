@@ -82,7 +82,7 @@ if ( $testing -eq "YES" ) {
         + " -logFile """ + $logFile + """"
     Invoke-Expression $test4Path
     if ($LastExitCode -ne 0) {
-        Write-Host "Step 4 post tests fails" -ForegroundColor Red
+        Write-Host "Step 4 post tests fail" -ForegroundColor Red
         exit $LastExitCode
     }
 }

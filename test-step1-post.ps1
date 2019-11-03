@@ -83,4 +83,5 @@ if ((Get-Item $unknownFolderPath).GetFiles().Count -ne 0) { exit 1 }
 
 # TODO launch verification on $referenceFolder
 
+Write-Host "Step 1 post tests success" -ForegroundColor Green
 exit 0

@@ -59,7 +59,7 @@ if ( $testing -eq "YES" ) {
         + " -logFile """ + $logFile + """"
     Invoke-Expression $test2Path
     if ($LastExitCode -ne 0) {
-        Write-Host "Step 2 post tests fails" -ForegroundColor Red
+        Write-Host "Step 2 post tests fail" -ForegroundColor Red
         exit $LastExitCode
     }
 }
