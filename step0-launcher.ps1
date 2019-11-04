@@ -48,9 +48,9 @@ if (-Not(Test-Path $referenceFolderPath)) {
     exit 1
 }
 
-if (-Not(Test-Path $unknownFolderPath)) { New-Item $unknownFolderPath }
-if (-Not(Test-Path $unknownFolderPath"\not-found\")) { New-Item $unknownFolderPath"\not-found\" }
-if (-Not(Test-Path $unknownFolderPath"\several-matches\")) { New-Item $unknownFolderPath"\several-matches\" }
+if (-Not(Test-Path $unknownFolderPath)) { New-Item -Path $unknownFolderPath -ItemType Directory -Force | Out-Null }
+if (-Not(Test-Path $unknownFolderPath"\not-found\")) { New-Item -Path $unknownFolderPath"\not-found\" -ItemType Directory -Force | Out-Null }
+if (-Not(Test-Path $unknownFolderPath"\several-matches\")) { New-Item -Path $unknownFolderPath"\several-matches\" -ItemType Directory -Force | Out-Null }
 
 # if we are launching tests, preparing folders
 if ( $testing -eq "YES" ) {
