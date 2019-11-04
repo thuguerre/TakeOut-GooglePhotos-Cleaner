@@ -23,10 +23,7 @@ param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
 
 
 Add-content $Logfile -value ""
-Add-content $Logfile -value ""
-Add-content $Logfile -value "#####################################"
-Add-content $Logfile -value "### start deleting existing files ###"
-Add-content $Logfile -value "#####################################"
+Add-content $Logfile -value "# start deleting existing files"
 Add-content $Logfile -value ""
 
 
@@ -49,9 +46,14 @@ foreach ($file in $filesToIgnore) {
 
 Write-Host "Files existing on both side deleted." -ForegroundColor Green
 
+$filesToIgnoreNumber = $filesToIgnore.Count
+Write-Host "`t $filesToIgnoreNumber files ignored"
+
 Add-content $Logfile -value ""
 Add-content $Logfile -value "# Deleting empty folders"
 Add-content $Logfile -value ""
+
+Write-Host "Deleting empty folders"
 
 Do {
 
@@ -63,6 +65,9 @@ Do {
     #logging folders to delete
     $allEmptyFolders | Add-Content $logFile
 
+    $foldersCount = $allEmptyFolders.Count
+    Write-Host "`t $foldersCount folders to delete."
+
     #deleting empty folders
     if ( $allEmptyFolders.Count -gt 0 ) {
         $allEmptyFolders | Remove-Item
@@ -72,12 +77,9 @@ Do {
     
 Write-Host "Empty folders deleted." -ForegroundColor Green
 
+
 Add-content $Logfile -value ""
-Add-content $Logfile -value ""
-Add-content $Logfile -value "###################################"
-Add-content $Logfile -value "### end deleting existing files ###"
-Add-content $Logfile -value "###################################"
-Add-content $Logfile -value ""
+Add-content $Logfile -value "#################################################################"
 
 
 if ( $testing -eq "YES" ) {

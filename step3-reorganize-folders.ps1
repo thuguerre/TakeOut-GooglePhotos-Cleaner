@@ -23,10 +23,7 @@ param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
 
 
 Add-content $Logfile -value ""
-Add-content $Logfile -value ""
-Add-content $Logfile -value "##################################"
-Add-content $Logfile -value "### start reorganizing folders ###"
-Add-content $Logfile -value "##################################"
+Add-content $Logfile -value "# start reorganizing folders"
 Add-content $Logfile -value ""
 
 
@@ -120,14 +117,16 @@ foreach ($folder in $takeOutArchiveFolders) {
 
 Write-Host "Folders reorganized" -ForegroundColor Green
 
+$notFoundFoldersNumbers = (Get-ChildItem $unknownFolderPath"\not-found\" -Recurse | Where-Object { $_.PsIsContainer -eq $true }).Count
+$notFoundFilesNumbers = (Get-ChildItem $unknownFolderPath"\not-found\" -Recurse | Where-Object { $_.PsIsContainer -eq $false }).Count
+Write-Host "`t $notFoundFoldersNumbers folders not found /  $notFoundFilesNumbers files not found"
 
+$severalMatchesFoldersNumbers = (Get-ChildItem $unknownFolderPath"\several-matches\" -Recurse | Where-Object { $_.PsIsContainer -eq $true }).Count
+$severalMatchesFilesNumbers = (Get-ChildItem $unknownFolderPath"\several-matches\" -Recurse | Where-Object { $_.PsIsContainer -eq $false }).Count
+Write-Host "`t $severalMatchesFoldersNumbers folders with several matches /  $severalMatchesFilesNumbers files"
 
 Add-content $Logfile -value ""
-Add-content $Logfile -value ""
-Add-content $Logfile -value "################################"
-Add-content $Logfile -value "### end reorganizing folders ###"
-Add-content $Logfile -value "################################"
-Add-content $Logfile -value ""
+Add-content $Logfile -value "#################################################################"
 
 
 if ( $testing -eq "YES" ) {

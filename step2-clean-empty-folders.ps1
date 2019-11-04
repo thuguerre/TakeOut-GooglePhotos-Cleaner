@@ -16,12 +16,10 @@ param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
 
 
 Add-content $Logfile -value ""
-Add-content $Logfile -value ""
-Add-content $Logfile -value "####################################"
-Add-content $Logfile -value "### start deleting empty folders ###"
-Add-content $Logfile -value "####################################"
+Add-content $Logfile -value "# start deleting empty folders"
 Add-content $Logfile -value ""
 
+Write-Host "Deleting empty folders"
 
 Do {
 
@@ -31,7 +29,7 @@ Do {
         | Where-Object { $_.GetFiles().Count -eq 0 -and $_.GetDirectories().Count -eq 0 } ).Fullname
 
     $foldersCount = $allEmptyFolders.Count
-    Write-Host "$foldersCount folders to delete."
+    Write-Host "`t $foldersCount folders to delete."
 
     #logging folders to delete
     $allEmptyFolders | Add-Content $logFile
@@ -45,11 +43,8 @@ Do {
 
 
 Add-content $Logfile -value ""
-Add-content $Logfile -value "##################################"
-Add-Content $logFile -value "### end deleting empty folders ###"
-Add-content $Logfile -value "##################################"
-Add-content $Logfile -value ""
-Add-content $Logfile -value ""
+Add-content $Logfile -value "#################################################################"
+
 
 Write-Host "Empty folders deleted" -ForegroundColor Green
 
