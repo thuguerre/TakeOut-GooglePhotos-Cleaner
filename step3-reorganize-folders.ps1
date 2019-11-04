@@ -114,7 +114,7 @@ foreach ($folder in $takeOutArchiveFolders) {
     # applying reorganization on current folder
     MoveAtRightPlace -sourceItem $folder
 
-    $percent = $i++ / $takeOutArchiveFolders.Count * 100
+    $percent = [System.Math]::Round($i++ / $takeOutArchiveFolders.Count * 100)
     Write-Progress -Activity "Reorganizing folders" -Status "$percent% Complete:" -PercentComplete $percent;
 }
     

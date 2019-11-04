@@ -45,7 +45,6 @@ foreach ($file in $filesToIgnore) {
 
     $percent = [System.Math]::Round($i++ / $filesToIgnore.Count * 100)
     Write-Progress -Activity "Deleting files which are on both side" -Status "$percent% Complete:" -PercentComplete $percent;
-    Start-Sleep -Milliseconds 500
 }
 
 

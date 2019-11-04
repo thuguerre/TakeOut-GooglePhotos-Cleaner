@@ -30,7 +30,7 @@ foreach ( $file in $jsonFiles) {
     Add-Content $logFile $file.Fullname
     Remove-Item $file.Fullname
 
-    $percent = $i++ / $jsonFiles.Count * 100
+    $percent = [System.Math]::Round($i++ / $jsonFiles.Count * 100)
     Write-Progress -Activity "Deleting JSON Files" -Status "$percent% Complete:" -PercentComplete $percent;
 }
 
