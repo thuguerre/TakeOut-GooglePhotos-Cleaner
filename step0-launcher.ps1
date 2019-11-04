@@ -42,6 +42,15 @@ if ( $testing -eq "CLEAN" ) {
 # starting by deleting all previous logs
 if (Test-Path $logFile) { Clear-Content $logFile }
 
+# verifying working folders
+if (-Not(Test-Path $referenceFolderPath)) {
+    Write-Host "Reference Folder $referenceFolderPath does not exist" -ForegroundColor Red
+    exit 1
+}
+
+if (-Not(Test-Path $unknownFolderPath)) { New-Item $unknownFolderPath }
+if (-Not(Test-Path $unknownFolderPath"\not-found\")) { New-Item $unknownFolderPath"\not-found\" }
+if (-Not(Test-Path $unknownFolderPath"\several-matches\")) { New-Item $unknownFolderPath"\several-matches\" }
 
 # if we are launching tests, preparing folders
 if ( $testing -eq "YES" ) {
