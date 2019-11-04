@@ -48,6 +48,7 @@ Add-content $Logfile -value "##################################"
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""
 
+Write-Host "Empty folders deleted"
 
 if ( $testing -eq "YES" ) {
 
