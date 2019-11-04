@@ -16,9 +16,7 @@ param(  [Parameter(Mandatory=$true)] [string] $takeOutArchivePath,
 
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""
-Add-content $Logfile -value "#################################"
-Add-content $Logfile -value "### start deleting JSON files ###"
-Add-content $Logfile -value "#################################"
+Add-content $Logfile -value "# start deleting JSON files"
 Add-content $Logfile -value ""
 
 
@@ -35,14 +33,12 @@ foreach ( $file in $jsonFiles) {
 }
 
 Write-Host "JSON Files deleted" -ForegroundColor Green
+$filesNumber = $jsonFiles.Count
+Write-Host "`t $filesNumber JSON files deleted"
 
+Add-content $Logfile -value ""
+Add-content $Logfile -value "#################################################################"
 
-Add-content $Logfile -value ""
-Add-content $Logfile -value "###############################"
-Add-Content $logFile -value "### end deleting JSON files ###"
-Add-content $Logfile -value "###############################"
-Add-content $Logfile -value ""
-Add-content $Logfile -value ""
 
 if ( $testing -eq "YES" ) {
 
