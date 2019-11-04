@@ -30,6 +30,9 @@ Do {
         | Where-Object { $_.PsIsContainer -eq $true } `
         | Where-Object { $_.GetFiles().Count -eq 0 -and $_.GetDirectories().Count -eq 0 } ).Fullname
 
+    $foldersCount = $allEmptyFolders.Count
+    Write-Host "$foldersCount folders to delete."
+
     #logging folders to delete
     $allEmptyFolders | Add-Content $logFile
 
@@ -48,6 +51,7 @@ Add-content $Logfile -value "##################################"
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""
 
+Write-Host "Empty folders deleted" -ForegroundColor Green
 
 if ( $testing -eq "YES" ) {
 

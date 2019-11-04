@@ -105,10 +105,20 @@ function MoveAtRightPlace {
 }
 
 
-#$alltakeOutArchivePaths =
-Get-ChildItem $takeOutArchivePath -Recurse `
-    | Where-Object { $_.PsIsContainer -eq $true } `
-    | ForEach-Object { MoveAtRightPlace -sourceItem $_ }
+# finding all folders in Take Out Archive
+$takeOutArchiveFolders = Get-ChildItem $takeOutArchivePath -Recurse | Where-Object { $_.PsIsContainer -eq $true }
+
+$i = 0
+foreach ($folder in $takeOutArchiveFolders) {
+
+    # applying reorganization on current folder
+    MoveAtRightPlace -sourceItem $folder
+
+    $percent = [System.Math]::Round($i++ / $takeOutArchiveFolders.Count * 100)
+    Write-Progress -Activity "Reorganizing folders" -Status "$percent% Complete:" -PercentComplete $percent;
+}
+
+Write-Host "Folders reorganized" -ForegroundColor Green
 
 
 

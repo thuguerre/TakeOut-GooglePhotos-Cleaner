@@ -22,8 +22,19 @@ Add-content $Logfile -value "#################################"
 Add-content $Logfile -value ""
 
 
-Get-ChildItem $takeOutArchivePath -recurse -include *.json | Tee-Object -var filesToDelete | Remove-Item 
-$filesToDelete | Add-Content $logFile
+$jsonFiles = Get-ChildItem $takeOutArchivePath -recurse -include *.json
+
+$i = 0
+foreach ( $file in $jsonFiles) {
+
+    Add-Content $logFile $file.Fullname
+    Remove-Item $file.Fullname
+
+    $percent = [System.Math]::Round($i++ / $jsonFiles.Count * 100)
+    Write-Progress -Activity "Deleting JSON Files" -Status "$percent% Complete:" -PercentComplete $percent;
+}
+
+Write-Host "JSON Files deleted" -ForegroundColor Green
 
 
 Add-content $Logfile -value ""
