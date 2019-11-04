@@ -35,11 +35,18 @@ $takeOutFolder = Get-ChildItem -Recurse -Path $takeOutArchivePath | Where-Object
 $referenceFolder = Get-ChildItem -Recurse -Path $referenceFolderPath | Where-Object { $_.PsIsContainer -eq $false }
 
 # comparing both file lists, identifying what ones are existing on both sides and deleting them
-Compare-Object -ReferenceObject $takeOutFolder -DifferenceObject $referenceFolder -IncludeEqual -ExcludeDifferent `
-    | ForEach-Object {
-        Add-Content $logFile -Value $_.InputObject.FullName
-        Remove-Item -Path $_.InputObject.FullName
-    }
+$filesToIgnore = (Compare-Object -ReferenceObject $takeOutFolder -DifferenceObject $referenceFolder -IncludeEqual -ExcludeDifferent)
+
+$i = 0
+foreach ($file in $filesToIgnore) {
+
+    Add-Content $logFile -Value $file.InputObject.FullName
+    Remove-Item -Path $file.InputObject.FullName
+
+    $percent = [System.Math]::Round($i++ / $filesToIgnore.Count * 100)
+    Write-Progress -Activity "Deleting files which are on both side" -Status "$percent% Complete:" -PercentComplete $percent;
+    Start-Sleep -Milliseconds 500
+}
 
 
 Add-content $Logfile -value ""
