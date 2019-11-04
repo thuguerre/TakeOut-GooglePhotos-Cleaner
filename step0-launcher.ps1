@@ -58,11 +58,11 @@ if ( $testing -eq "YES" ) {
     # another security to prevent original files to delete
     if ( $takeOutArchivePath -eq ".\workspace\take-out-archive" ) {
 
-        # erasing, if required, the Take Out Archive folder, and initialize it with the Test Case
+        # deleting, if required, the Take Out Archive folder, and initialize it with the Test Case
         if (Test-Path $takeOutArchivePath) { Remove-Item $takeOutArchivePath -Recurse -Force }
         Copy-Item -Path ".\test-resources\test-folder" -Destination $takeOutArchivePath -Recurse
 
-        # erasing, if required, Unkown work folders, and initialize it with expected sub-folders
+        # deleting, if required, Unknown work folders, and initialize it with expected sub-folders
         if (Test-Path $unknownFolderPath) { Remove-Item $unknownFolderPath -Recurse -Force }
         New-Item -Path $unknownFolderPath -ItemType Directory -Force | Out-Null
         New-Item -Path $unknownFolderPath"\not-found" -ItemType Directory -Force | Out-Null
