@@ -15,18 +15,18 @@ However, Take Out archive comes with:
 - flat folder structure (if you had pictures folders in pictures folders, forget it in your Take Out Archive: they are all moved up to root level),
 - a lot, and a lot, and a lot, and a lot of photos you have taken, making comparison with your local backup very... hum... boring (45.000 files in my case).
 
-I needed a solution to clean and reorganize Take Out Archive, and then compare it and my Local Backup Folder in order to identify only photos stored on Google Photos.
+I needed a solution to clean and reorganize Take Out Archive, and then compare it and my Local Backup Folder in order to identify photos only stored on Google Photos.
 
 ## Script behavior
 
 Script is composed of several steps with a different objective each time:
 
-1. Step 1: deleting all JSON files from Take Out Archive
-2. Step 2: deleting empty folders (some folders contained just a JSON file. Do not ask...), from Take Out Archive
-3. Step 3: trying to reorganize Take Out Google Photos folder in order to copy your local backup folder (pre-requisite to step 4)
+1. **Step 1:** deleting all JSON files from Take Out Archive
+2. **Step 2:** deleting empty folders (some folders contained just a JSON file. Do not ask...), from Take Out Archive
+3. **Step 3:** trying to reorganize Take Out Google Photos folder in order to copy your local backup folder structure (pre-requisite to step 4)
     - Folders which are not found in Local Backup Folder are moved to a `\not-found` directory to be processed manually later
     - Folders for which several possible folders are found in Local Backup Folder are moved to a `\several-matches` directory to be processed manually later
-4. Step 4: comparing files in Take Out Archive and your local backup in order to delete those which are on both sides.
+4. **Step 4:** comparing files in Take Out Archive and your local backup in order to delete those which are on both sides.
 
 All actions are logged in log file, where you can control script behavior. You can also use it to understand where several folder matches have been found.  
 
