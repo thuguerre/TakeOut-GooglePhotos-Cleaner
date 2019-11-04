@@ -47,6 +47,7 @@ foreach ($file in $filesToIgnore) {
     Write-Progress -Activity "Deleting files which are on both side" -Status "$percent% Complete:" -PercentComplete $percent;
 }
 
+Write-Host "Files existing on both side deleted." -ForegroundColor Green
 
 Add-content $Logfile -value ""
 Add-content $Logfile -value "# Deleting empty folders"
@@ -69,6 +70,7 @@ Do {
 
 } While ( $allEmptyFolders.Count -gt 0 )
     
+Write-Host "Empty folders deleted." -ForegroundColor Green
 
 Add-content $Logfile -value ""
 Add-content $Logfile -value ""

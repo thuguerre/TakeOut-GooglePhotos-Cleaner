@@ -34,7 +34,7 @@ foreach ( $file in $jsonFiles) {
     Write-Progress -Activity "Deleting JSON Files" -Status "$percent% Complete:" -PercentComplete $percent;
 }
 
-Write-Host "JSON Files deleted"
+Write-Host "JSON Files deleted" -ForegroundColor Green
 
 
 Add-content $Logfile -value ""

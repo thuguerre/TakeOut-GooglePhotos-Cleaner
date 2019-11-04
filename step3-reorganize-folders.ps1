@@ -117,7 +117,8 @@ foreach ($folder in $takeOutArchiveFolders) {
     $percent = [System.Math]::Round($i++ / $takeOutArchiveFolders.Count * 100)
     Write-Progress -Activity "Reorganizing folders" -Status "$percent% Complete:" -PercentComplete $percent;
 }
-    
+
+Write-Host "Folders reorganized" -ForegroundColor Green
 
 
 
